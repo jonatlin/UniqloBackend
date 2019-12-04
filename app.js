@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const dotenv = require('dotenv');
 
 // dotenv
@@ -28,7 +28,7 @@ async function start() {
         });
         
         // establish DB connection pool
-        // await dbConnector.createPool();
+        await dbConnector.createPool();
         
     } catch(e) {
         console.log(e);
@@ -43,10 +43,14 @@ async function shutdown() {
     
     
     try {
-        // dbConnector.closePool();
+        await dbConnector.closePool();
     } catch (e) {
+
         console.log(e);
     }
+    
+    process.exit(0);
+
 }
 
 // clear db connection on program exit
