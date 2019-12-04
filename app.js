@@ -8,7 +8,8 @@ dotenv.config({ path: '.env' });
 const apiController = require('./controllers/api');
 
 // DB connector
-const dbConnector = require('./services/dbconnection');
+// const dbConnector = require('./services/dbconnection');
+const database = require('./services/database');
 
 const app = express();
 
@@ -28,7 +29,7 @@ async function start() {
         });
         
         // establish DB connection pool
-        await dbConnector.createPool();
+        await database.createPool();
         
     } catch(e) {
         console.log(e);
@@ -43,7 +44,7 @@ async function shutdown() {
     
     
     try {
-        await dbConnector.closePool();
+        await database.closePool();
     } catch (e) {
 
         console.log(e);
