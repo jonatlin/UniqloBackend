@@ -2,7 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 
 // dotenv
-dotenv.config({ path: '.env.example' });
+dotenv.config({ path: '.env' });
 
 // controllers
 const apiController = require('./controllers/api');
