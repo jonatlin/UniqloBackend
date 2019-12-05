@@ -20,7 +20,7 @@ async function start() {
         app.set('port', process.env.PORT || 8080);
         
         // routes
-        app.get('/test', apiController.test);
+        app.get('/', apiController.home);
         app.get('/getAllProducts', apiController.getAllProducts);
         
         // start server

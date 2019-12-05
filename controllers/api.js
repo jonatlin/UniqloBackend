@@ -1,11 +1,10 @@
 const oracledb = require('oracledb');
 const database = require('../services/database');
 
-
-exports.test = async (req, res, next) => {
+exports.home = async (req, res, next) => {
 
     return res.json({
-        "test": ['Test', "test"]
+        "home": "default response"
     });
 
 }
