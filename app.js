@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const helmet = require('helmet');
 
 // dotenv
 dotenv.config({ path: '.env' });
@@ -8,8 +9,8 @@ dotenv.config({ path: '.env' });
 const apiController = require('./controllers/api');
 
 // DB connector
-// const dbConnector = require('./services/dbconnection');
 const database = require('./services/database');
+
 
 const app = express();
 
@@ -17,6 +18,9 @@ const app = express();
 async function start() {
     
     try {
+        // helmet for security
+        app.use(helmet());
+
         app.set('port', process.env.PORT || 8080);
         
         // routes
