@@ -1,6 +1,6 @@
 # UniqloBackend
 ## Description
-🚧 🚧 🚧 🚧 Work in progress, some parts not reproducible 🚧 🚧 🚧 🚧
+🚧 🚧 🚧 🚧 Work in progress, some parts may not be reproducible 🚧 🚧 🚧 🚧
 
 This is a NodeJS backend for a Uniqlo concept app. It provides product information from an Oracle Autonomous Database.
 

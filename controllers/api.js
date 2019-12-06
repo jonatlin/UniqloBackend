@@ -3,10 +3,10 @@ const database = require('../services/database');
 
 exports.home = async (req, res, next) => {
 
-    return res.json({
-        "home": "default response"
-    });
+    var homeDescription = "api for Uniqlo app";
 
+
+    res.send(homeDescription);
 }
 
 exports.getAllProducts = async (req, res, next) => {
