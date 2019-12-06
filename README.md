@@ -19,14 +19,13 @@ Endpoints:
 - /
 - /getAllProducts
 
-
-Note: Oracle Cloud Free Tier includes always free OCI and ADB instances: https://www.oracle.com/cloud/free/
-
 ## Installation Instructions
 
 ### Prerequisites
 1. Environment running Docker (Docker Desktop works).
 2. Oracle Autonomous Database Instance
+
+Note: Oracle Cloud Free Tier includes always free OCI and ADB instances: https://www.oracle.com/cloud/free/
 
 ### Backend Setup:
 1. Install docker on host (Ex: OCI): https://docs.docker.com/v17.09/engine/installation/#cloud
