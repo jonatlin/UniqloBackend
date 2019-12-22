@@ -13,7 +13,7 @@ exports.getAllProducts = async (req, res, next) => {
 
     var result;
 
-    const sql = `SELECT * FROM PRODUCT_ITEM`;
+    const sql = `SELECT * FROM V_PRODUCT_ITEM`;
 
     try {
         result = await database.query(sql);
