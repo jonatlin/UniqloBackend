@@ -29,16 +29,17 @@ Note: Oracle Cloud Free Tier includes always free OCI and ADB instances: https:/
 
 ### Backend Setup:
 1. Install docker on host (Ex: OCI): https://docs.docker.com/v17.09/engine/installation/#cloud
-2. Clone project to host environment: `git clone https://github.com/jkailin/UniqloBackend.git`
+2. Clone project to host: `git clone https://github.com/jkailin/UniqloBackend.git`
 3. Download the wallet for your Autonomous Database: https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/connect-download-wallet.html#GUID-B06202D2-0597-41AA-9481-3B174F75D4B1
 4. Move wallet to root of project directory in host environment. For example if using OCI: `scp -i <private_key> <wallet> opc@<public-ip-address>:/home/opc/UniqloBackend`
 5. Unzip the wallet contents into a folder named "wallet" in the project root directory.
-6. Open the sqlnet.ora file in the wallet folder, find directory path, and change it to $TNS_ADMIN. It should look like: `DIRECTORY=$TNS_ADMIN`.
+6. Open the sqlnet.ora file in the "wallet" folder, find variable for directory path, and change it to $TNS_ADMIN. It should look like: `DIRECTORY=$TNS_ADMIN`.
 7. Create a  file name ".env" in the project root directory and add database credentials. See .env.example for necessary additions.
 8. Build image: `docker image build -t uniqlo .`
-9. Run image: `docker container run --publish 8000:8080 --detach --rm --name uniqlo uniqlo`. [docker_setup.sh](setup/docker_setup.sh) can be run for convenience.
+9. Run image: `docker container run --publish 8000:8080 --detach --rm --name uniqlo uniqlo`. Alternatively run [docker_setup.sh](setup/docker_setup.sh) in the "setup" folder.
 
 Example folder structure:
+```
 .
 ├── Dockerfile
 ├── README.md
@@ -52,6 +53,7 @@ Example folder structure:
 ├── setup
 ├── views
 └── wallet
+```
 
 ### DB Setup
 1. Provision an Oracle Autonomous Database.
