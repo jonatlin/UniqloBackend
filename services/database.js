@@ -19,6 +19,10 @@ exports.closePool = async () => {
 exports.query = async (sql, binds = [], options = {
     outFormat: oracledb.OUT_FORMAT_OBJECT
 }) => {
+
+    var connection;
+    var result;
+
     try {
         connection = await oracledb.getConnection();
         console.log("connected");
@@ -37,7 +41,10 @@ exports.query = async (sql, binds = [], options = {
                 await connection.close();
                 
                 console.log("returning result");
-                return result;
+                if(result)
+                    return result;
+                else
+                    return {"no result": "error"};
                 
             } catch (err) {
                 console.error(err);
