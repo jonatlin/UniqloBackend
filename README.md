@@ -34,19 +34,20 @@ Note: Oracle Cloud Free Tier includes always free OCI and ADB instances: https:/
 4. Move wallet to root of project directory in host environment. For example if using OCI: `scp -i <private_key> <wallet> opc@<public-ip-address>:/home/opc/UniqloBackend`
 5. Unzip the wallet contents into a folder named "wallet" in the project root directory.
 6. Open the sqlnet.ora file in the "wallet" folder, find variable for directory path, and change it to $TNS_ADMIN. It should look like: `DIRECTORY=$TNS_ADMIN`.
-7. Create a  file name ".env" in the project root directory and add database credentials. See .env.example for necessary additions.
+7. Create a file called ".env" in the project root directory and add database settings from [example.env](example.env).
 8. Build image: `docker image build -t uniqlo .`
 9. Run image: `docker container run --publish 8000:8080 --detach --rm --name uniqlo uniqlo`. Alternatively run [docker_setup.sh](setup/docker_setup.sh) in the "setup" folder.
 
 Example folder structure:
 ```
-.
+UniqloBackend/
+├── .env
+├── .gitignore
 ├── Dockerfile
 ├── README.md
 ├── app.js
 ├── controllers
 ├── example.env
-├── node_modules
 ├── package-lock.json
 ├── package.json
 ├── services
