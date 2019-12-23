@@ -31,12 +31,13 @@ Note: Oracle Cloud Free Tier includes always free OCI and ADB instances: https:/
 1. Install docker on host (Ex: OCI): https://docs.docker.com/v17.09/engine/installation/#cloud
 2. Clone project to host: `git clone https://github.com/jkailin/UniqloBackend.git`
 3. Download the wallet for your Autonomous Database: https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/connect-download-wallet.html#GUID-B06202D2-0597-41AA-9481-3B174F75D4B1
-4. Move wallet to root of project directory in host environment. For example if using OCI: `scp -i <private_key> <wallet> opc@<public-ip-address>:/home/opc/UniqloBackend`
-5. Unzip the wallet contents into a folder named "wallet" in the project root directory.
-6. Open the sqlnet.ora file in the "wallet" folder, find variable for directory path, and change it to $TNS_ADMIN. It should look like: `DIRECTORY=$TNS_ADMIN`.
-7. Create a file called ".env" in the project root directory and add database settings from [example.env](example.env).
-8. Build image: `docker image build -t uniqlo .`
-9. Run image: `docker container run --publish 8000:8080 --detach --rm --name uniqlo uniqlo`. Alternatively run [docker_setup.sh](setup/docker_setup.sh) in the "setup" folder.
+4. Copy wallet to root of project directory in host environment. For example if using OCI: `scp -i <private_key> <wallet> opc@<public-ip-address>:/home/opc/UniqloBackend`
+5. Enter project root directory in host: `cd UniqloBackend`
+6. Unzip the wallet contents into a folder named "wallet" in the project root directory: `unzip <wallet> -d wallet`
+7. Open the sqlnet.ora file in the "wallet" folder, find variable for directory path, and change it to $TNS_ADMIN. It should look like: `DIRECTORY=$TNS_ADMIN`.
+8. Create ".env" file in the project root directory (`cp example.env .env`) and add required database settings.
+9. Build image: `docker image build -t uniqlo .`
+10. Run image: `docker container run --publish 8000:8080 --detach --rm --name uniqlo uniqlo`. Alternatively run [docker_setup.sh](setup/docker_setup.sh) in the "setup" folder.
 
 Example folder structure:
 ```
