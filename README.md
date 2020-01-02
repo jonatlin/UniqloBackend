@@ -17,7 +17,8 @@ Host (may be up): http://150.136.152.167:8000/
 
 Endpoints:
 - /
-- /getAllProducts
+- /getProducts
+-/getPromotions
 
 ## Installation Instructions
 
