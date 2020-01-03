@@ -27,6 +27,7 @@ async function start() {
         app.get('/', apiController.home);
         app.get('/getProducts', apiController.getProducts);
         app.get('/getAds', apiController.getAds);
+        app.get('/getAdItems', apiController.getAdItems);
 
         
         // start server
