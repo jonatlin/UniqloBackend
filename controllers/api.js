@@ -69,7 +69,7 @@ exports.getAdItems = async (req, res, next) => {
     var sql = `SELECT * From v_items where ad_item_id=`;
     
     
-    if (adItemId == null && !isNaN(adItemId)) {
+    if (adItemId == null || isNaN(adItemId)) {
         res.status(400);
         return res.json({ "error": "invalid parameters" });
     } else {
