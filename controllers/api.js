@@ -16,6 +16,8 @@ exports.getItems = async (req, res, next) => {
     var id = req.query.id;
 
     var sql = `SELECT * FROM ITEM`;
+
+    // param check
     if(limit!=null && !isNaN(limit)) {
         sql += " Where ROWNUM<= " + limit;
     }
@@ -70,6 +72,7 @@ exports.getAdItems = async (req, res, next) => {
     
     
     if (adItemId == null || isNaN(adItemId)) {
+        console.log("invalid parameters");
         res.status(400);
         return res.json({ "error": "invalid parameters" });
     } else {
