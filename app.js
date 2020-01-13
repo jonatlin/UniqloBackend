@@ -25,7 +25,7 @@ async function start() {
         
         // routes
         app.get('/', apiController.home);
-        app.get('/getProducts', apiController.getProducts);
+        app.get('/getItems', apiController.getItems);
         app.get('/getAds', apiController.getAds);
         app.get('/getAdItems', apiController.getAdItems);
 

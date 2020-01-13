@@ -9,15 +9,19 @@ exports.home = async (req, res, next) => {
     res.send(homeDescription);
 }
 
-exports.getProducts = async (req, res, next) => {
+exports.getItems = async (req, res, next) => {
 
     var result;
     var limit = req.query.limit;
-
+    var id = req.query.id;
 
     var sql = `SELECT * FROM ITEM`;
-    if(limit!=null) {
+    if(limit!=null && !isNaN(limit)) {
         sql += " Where ROWNUM<= " + limit;
+    }
+
+    if (id != null && !isNaN(id)) {
+        sql += " Where ITEM_ID= " + id;
     }
 
     console.log(sql);
@@ -27,7 +31,8 @@ exports.getProducts = async (req, res, next) => {
     }
     catch(err) {
         console.log(err);
-        return res.json({"error":"error"});
+        res.status(400);
+        return res.json({"error": "error"});
     }
 
 }
@@ -39,7 +44,7 @@ exports.getAds = async (req, res, next) => {
 
 
     var sql = `SELECT * FROM AD_ITEM`;
-    if (limit != null) {
+    if (limit != null && !isNaN(limit)) {
         sql += " Where ROWNUM<= " + limit;
     }
 
@@ -50,6 +55,7 @@ exports.getAds = async (req, res, next) => {
     }
     catch (err) {
         console.log(err);
+        res.status(400);
         return res.json({ "error": "error" });
     }
 
@@ -58,16 +64,16 @@ exports.getAds = async (req, res, next) => {
 exports.getAdItems = async (req, res, next) => {
 
     var result;
-    var adItemId = req.query.ad_item_id;
+    var adItemId = req.query.id;
 
-
-    var sql = `Select item,original_price,discount_price,item_image,item_label,item_image From v_ad_items`;
+    var sql = `SELECT * From v_items where ad_item_id=`;
     
     
-    if (adItemId == null) {
+    if (adItemId == null && !isNaN(adItemId)) {
+        res.status(400);
         return res.json({ "error": "invalid parameters" });
     } else {
-        sql += " Where ad_item_id=" + adItemId;
+        sql += adItemId;
     }
 
     console.log(sql);
@@ -77,6 +83,7 @@ exports.getAdItems = async (req, res, next) => {
     }
     catch (err) {
         console.log(err);
+        res.status(400);
         return res.json({ "error": "error" });
     }
 }
