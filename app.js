@@ -25,6 +25,7 @@ async function start() {
         
         // routes
         app.get('/', apiController.home);
+        app.get('/resetPool', apiController.resetPool);
         app.get('/getItems', apiController.getItems);
         app.get('/getAds', apiController.getAds);
         app.get('/getAdItems', apiController.getAdItems);

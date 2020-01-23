@@ -6,7 +6,8 @@ exports.createPool = async () => {
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         connectString: process.env.DB_CONNECTION,
-        poolMax: 10
+        poolMin: 0,
+        poolMax: 20
     });
     
 };
@@ -15,6 +16,13 @@ exports.closePool = async () => {
     
     await oracledb.getPool().close();
 };
+
+exports.resetPool = async () => {
+    
+    await this.closePool();
+    await this.createPool();
+    
+}
 
 exports.query = async (sql, binds = [], options = {
     outFormat: oracledb.OUT_FORMAT_OBJECT
