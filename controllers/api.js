@@ -84,22 +84,32 @@ exports.getAds = async (req, res, next) => {
 exports.getAdItems = async (req, res, next) => {
     
     var result;
+    var nameJson;
+    var jsonResult;
+
     var adItemId = req.query.id;
     
-    var sql = `SELECT * From v_items where ad_item_id=`;
-    
+    var sqlAds = `SELECT * From v_get_ad_products where ad_item_id=`;
+    var sqlName = 'SELECT Name From ad_item WHERE ad_item_id=';
     
     if (adItemId == null || isNaN(adItemId)) {
         console.log("invalid parameters");
         res.status(400);
         return res.json({ "error": "invalid parameters" });
     } else {
-        sql += adItemId;
+        sqlAds += adItemId;
+        sqlName += adItemId;
+
     }
     
-    console.log(sql);
+    console.log(sqlAds);
+    console.log(sqlName);
+
     try {
-        result = await database.query(sql);
+        result = await database.query(sqlAds);
+        nameJson = await database.query(sqlName);
+
+        result["name"] = nameJson.rows[0].NAME;
         return res.json(result);
     }
     catch (err) {
