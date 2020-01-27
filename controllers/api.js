@@ -85,7 +85,6 @@ exports.getAdItems = async (req, res, next) => {
     
     var result;
     var nameJson;
-    var jsonResult;
 
     var adItemId = req.query.id;
     
@@ -99,17 +98,38 @@ exports.getAdItems = async (req, res, next) => {
     } else {
         sqlAds += adItemId;
         sqlName += adItemId;
-
     }
-    
-    console.log(sqlAds);
-    console.log(sqlName);
 
     try {
         result = await database.query(sqlAds);
         nameJson = await database.query(sqlName);
 
         result["name"] = nameJson.rows[0].NAME;
+        return res.json(result);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400);
+        return res.json({ "error": "error" });
+    }
+}
+
+exports.getPopularItems = async (req, res, next) => {
+
+    var result;
+    var limit = req.query.limit;
+    var sql = `SELECT * FROM ITEM`;
+
+    if (limit == null || !isNaN(limit)) {
+        limit = 10;
+    }
+
+    sql += ` sample(${limit})`;
+
+    console.log(sql);
+    
+    try {
+        result = await database.query(sql);
         return res.json(result);
     }
     catch (err) {
