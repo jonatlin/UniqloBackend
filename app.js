@@ -25,10 +25,10 @@ async function start() {
         
         // routes
         app.get('/', apiController.home);
-        app.get('/resetPool', apiController.resetPool);
+        app.get('/resetPool', apiController.resetPool); // TODO: automate this check
         app.get('/getItems', apiController.getItems);
         app.get('/getAds', apiController.getAds);
-        app.get('/getAdItems', apiController.getAdItems);
+        // app.get('/getAdItems', apiController.getAdItems);
         app.get('/getPopularItems', apiController.getPopularItems);
 
 
