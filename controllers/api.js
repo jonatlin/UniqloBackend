@@ -28,23 +28,42 @@ exports.resetPool = async (req, res, next) => {
 exports.getItems = async (req, res, next) => {
     
     var result;
-    var limit = req.query.limit;
-    var id = req.query.id;
+    var name = "item query";
+
+    // parameters
+    // var limit = req.query.limit;
+    var itemId = req.query.itemId;
+    var adId = req.query.adId;
     
     var sql = `SELECT * FROM ITEM`;
+    var sqlName = null;
     
     // param check
-    if(limit!=null && !isNaN(limit)) {
-        sql += " Where ROWNUM<= " + limit;
-    }
+    // if(isNotNullAndisNumber(limit)) {
+    //     sql += " Where ROWNUM<= " + limit;
+    // }
     
-    if (id != null && !isNaN(id)) {
-        sql += " Where ITEM_ID= " + id;
+    if (isNotNullAndisNumber(itemId)) {
+        sql += " Where ITEM_ID= " + itemId;
+    }
+
+    // TODO: should be single db query with multiple params
+    if (isNotNullAndisNumber(adId)) {
+        sql = "SELECT * From v_get_ad_products where ad_item_id=" + adId;
+        sqlName = "SELECT Name From ad_item WHERE ad_item_id=" + adId;
     }
     
     console.log(sql);
+    console.log(sqlName);
+
     try {
         result = await database.query(sql);
+        if(sqlName != null) {
+            var nameJson = await database.query(sqlName);
+            name = nameJson.rows[0].NAME;
+        }
+
+        result["name"] = name;
         return res.json(result);
     }
     catch(err) {
@@ -81,6 +100,7 @@ exports.getAds = async (req, res, next) => {
     
 }
 
+// don't need
 exports.getAdItems = async (req, res, next) => {
     
     var result;
@@ -89,7 +109,7 @@ exports.getAdItems = async (req, res, next) => {
     var adItemId = req.query.id;
     
     var sqlAds = `SELECT * From v_get_ad_products where ad_item_id=`;
-    var sqlName = 'SELECT Name From ad_item WHERE ad_item_id=';
+    var sqlName = "SELECT Name From ad_item WHERE ad_item_id=";
     
     if (adItemId == null || isNaN(adItemId)) {
         console.log("invalid parameters");
@@ -137,4 +157,8 @@ exports.getPopularItems = async (req, res, next) => {
         res.status(400);
         return res.json({ "error": "error" });
     }
+}
+
+function isNotNullAndisNumber(num) {
+    return (num != null && !isNaN(num));
 }
