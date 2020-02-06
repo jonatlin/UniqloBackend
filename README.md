@@ -2,14 +2,14 @@
 ## Description
 🚧 🚧 🚧 🚧 Work in progress, some parts may not be reproducible yet 🚧 🚧 🚧 🚧
 
-This is a NodeJS backend for a Uniqlo concept app. It provides product information from an Oracle Autonomous Database.
+This is a cloud backend for a Uniqlo concept app. It provides product information from an Oracle Autonomous Database.
 
 ### Technology Used:
-Android (frontend: https://github.com/jkailin/UniqloAndroidApp)\
-NodeJS (backend)\
-Docker (containerize backend)\
-Oracle Cloud Infrastructure (host backend)\
-Oracle Object Storage (storage platform)\
+Android (frontend: https://github.com/jkailin/UniqloAndroidApp) \
+NodeJS (backend) \
+Docker (containerize backend) \
+Oracle Cloud Infrastructure (host backend) \
+Oracle Object Storage (storage platform) \
 Oracle Autonomous Transaction Processing (database for backend)
 
 ### Useful Endpoints:
