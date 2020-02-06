@@ -7,6 +7,7 @@ This is a NodeJS backend for a Uniqlo concept app. It provides product informati
 Technology Used:\
 Android\
 NodeJS\
+Docker\
 Oracle Cloud Infrastructure\
 Oracle Object Storage\
 Oracle Autonomous Transaction Processing
