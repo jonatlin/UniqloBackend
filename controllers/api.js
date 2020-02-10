@@ -1,5 +1,6 @@
 // const oracledb = require('oracledb');
 const database = require('../services/database');
+const constants = require('../constants/constants');
 
 exports.home = async (req, res, next) => {
     
@@ -29,6 +30,7 @@ exports.getItems = async (req, res, next) => {
     
     var result;
     var name = "item query";
+    var defaultRes = constants.GET_ITEMS;
 
     // parameters
     // var limit = req.query.limit;
@@ -57,7 +59,8 @@ exports.getItems = async (req, res, next) => {
     console.log(sqlName);
 
     try {
-        result = await database.query(sql);
+        // if cannot query db use default response
+        result = await database.query(sql, undefined, undefined, defaultRes);
         if(sqlName != null) {
             var nameJson = await database.query(sqlName);
             name = nameJson.rows[0].NAME;
@@ -78,7 +81,8 @@ exports.getAds = async (req, res, next) => {
     
     var result;
     var limit = req.query.limit;
-    
+    var defaultRes = constants.GET_ADS;
+
     
     var sql = `SELECT * FROM AD_ITEM`;
     if (limit != null && !isNaN(limit)) {
@@ -87,7 +91,7 @@ exports.getAds = async (req, res, next) => {
     
     console.log(sql);
     try {
-        result = await database.query(sql);
+        result = await database.query(sql, undefined, undefined, defaultRes);
         console.log(res.json);
         return res.json(result);
         
@@ -105,6 +109,7 @@ exports.getAdItems = async (req, res, next) => {
     
     var result;
     var nameJson;
+    var defaultRes = constants.GET_ITEMS;
 
     var adItemId = req.query.id;
     
@@ -121,7 +126,7 @@ exports.getAdItems = async (req, res, next) => {
     }
 
     try {
-        result = await database.query(sqlAds);
+        result = await database.query(sqlAds, undefined, undefined, defaultRes);
         nameJson = await database.query(sqlName);
 
         result["name"] = nameJson.rows[0].NAME;
@@ -138,6 +143,8 @@ exports.getPopularItems = async (req, res, next) => {
 
     var result;
     var limit = req.query.limit;
+    var defaultRes = constants.GET_ITEMS;
+
     var sql = `SELECT * FROM ITEM`;
 
     if (limit == null || !isNaN(limit)) {
@@ -149,7 +156,7 @@ exports.getPopularItems = async (req, res, next) => {
     console.log(sql);
     
     try {
-        result = await database.query(sql);
+        result = await database.query(sql, undefined, undefined, defaultRes);
         return res.json(result);
     }
     catch (err) {

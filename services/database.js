@@ -1,15 +1,20 @@
 const oracledb = require('oracledb');
 
+
 exports.createPool = async () => {
     
     await oracledb.createPool({
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         connectString: process.env.DB_CONNECTION,
+        poolIncrement: 1,
         poolMin: 0,
         poolMax: 20
+        // poolTimeout: 10,
+        // poolPingInterval: 10,
+        // queueTimeout: 0
     });
-    
+    console.log("connection pool created");
 };
 
 exports.closePool = async () => {
@@ -25,14 +30,18 @@ exports.resetPool = async () => {
 }
 
 exports.query = async (sql, binds = [], options = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT
-}) => {
-
+    outFormat: oracledb.OUT_FORMAT_OBJECT,
+    timeout: 5
+}, defaultRes = {"error": "unable to retrieve data"}) => {
+    
     var connection;
     var result;
+    
+    
 
     try {
-        connection = await oracledb.getConnection();
+        console.log("establishing connection");
+        connection = (await oracledb.getConnection());
         console.log("connected");
         
         result = await connection.execute(sql, binds, options);
@@ -50,18 +59,15 @@ exports.query = async (sql, binds = [], options = {
                 
                 console.log("returning result");
                 if(result)
-                    return result;
+                return result;
                 else
-                    return {"no result": "error"};
+                return {"no result": "error"};
                 
             } catch (err) {
                 console.error(err);
             }
+        } else {
+            return defaultRes;
         }
-        
-        return {
-            "error": "unable to retrieve data"
-        };
-        
     }
 };
