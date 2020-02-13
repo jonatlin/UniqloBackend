@@ -12,6 +12,7 @@ ENV PATH=$PATH:/usr/lib/oracle/19.3/client64/bin
 # Get node app files
 WORKDIR /app
 COPY package*.json /app/
+COPY .npmrc /app/
 RUN npm install    
 COPY . /app/
 

@@ -55,8 +55,8 @@ exports.getItems = async (req, res, next) => {
         sqlName = "SELECT Name From ad_item WHERE ad_item_id=" + adId;
     }
     
-    console.log(sql);
-    console.log(sqlName);
+    console.log("sql: " + sql);
+    console.log("sql name: " + sqlName);
 
     try {
         // if cannot query db use default response

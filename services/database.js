@@ -2,18 +2,21 @@ const oracledb = require('oracledb');
 
 
 exports.createPool = async () => {
-    
-    await oracledb.createPool({
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        connectString: process.env.DB_CONNECTION,
-        poolIncrement: 1,
-        poolMin: 0,
-        poolMax: 20
-        // poolTimeout: 10,
-        // poolPingInterval: 10,
-        // queueTimeout: 0
-    });
+    try {
+        await oracledb.createPool({
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            connectString: process.env.DB_CONNECTION,
+            poolIncrement: 1,
+            poolMin: 0,
+            poolMax: 20,
+            poolTimeout: 10,
+            poolPingInterval: 10,
+            queueTimeout: 0
+        });
+    } catch(err) {
+        console.log(err);
+    }
     console.log("connection pool created");
 };
 
@@ -38,12 +41,12 @@ exports.query = async (sql, binds = [], options = {
     var result;
     
     
-
+    
     try {
         console.log("establishing connection");
         connection = (await oracledb.getConnection());
         console.log("connected");
-        
+        connection.callTimeout(10000);
         result = await connection.execute(sql, binds, options);
         console.log(result);
         
